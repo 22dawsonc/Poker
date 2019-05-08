@@ -1,8 +1,10 @@
 public class Game 
 {
     private Card[] deck = new Card[52];
-    public Game()
+    Player[] players;
+    public Game(Player[] players)
     {
+        this.players = players;
         String[] suits = {"d", "c", "s", "h"};
         int ct = 0;
         for(int i = 1;i<=13;i++)
@@ -20,9 +22,33 @@ public class Game
             deck[i] = deck[num];
             deck[num] = temp;
         }
-        for(Card c: deck)
-            System.out.println(c);
+        Hand h = new Hand(deck[0], deck[1]);
+        Hand a = new Hand(deck[2], deck[3]);
+        players[0].deal(h);
+        players[1].deal(a);
     }
-    public static void main(String[] args){new Game();}
+    public void playHand()
+    {
+        int i = 0;
+        while(true)
+        {
+            String s = players[i%players.length].getMove();
+            if(s.contains("r"))
+            {
+                int amt = Integer.valueOf(s.substring(s.indexOf("r")+1));
+                System.out.println(amt);
+            }
+            else if(s.equals("f"))
+            {
+                System.out.println("fold");
+            }
+            else
+            {
+                System.out.println(s);
+            }
+        }
+
+    }
+    public Player[] getPlayers(){return players;}
 
 }

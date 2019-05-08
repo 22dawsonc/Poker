@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=cash\ n
+comment0.target=Player(int,\ java.lang.String)
+comment1.params=
+comment1.target=Hand\ getHand()
+comment2.params=d
+comment2.target=void\ setDisplay(Display)
+comment3.params=h
+comment3.target=void\ deal(Hand)
+comment4.params=
+comment4.target=int\ getCash()
+comment5.params=
+comment5.target=java.lang.String\ getMove()
+comment5.text=\r\n\ The\ String\ codes\ for\ the\ command\ that\ the\ Player\ wants\ to\ do\r\n\ \ \ "c"\ -\ means\ call\r\n\ \ \ "r"+\ number\ -\ the\ number\ is\ how\ much\ this\ player\ wishes\ to\ raise\ by.\r\n\ \ \ "f"\ -\ folds\ for\ this\ player\r\n
+comment6.params=cash
+comment6.target=void\ setCash(int)
+numComments=7

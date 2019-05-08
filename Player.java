@@ -1,10 +1,23 @@
+import java.util.Scanner;
+
 public class Player
 {
     private Hand h;
     private int cash;
-    public Player(int cash)
+    private Display d;
+    private String name;
+    public Player(int cash, String n)
     {
+        this.name = n;
         this.cash = cash;
+    }
+    public Hand getHand()
+    {
+        return h;
+    }
+    public void setDisplay(Display d)
+    {
+        this.d= d;
     }
     public void deal(Hand h)
     {
@@ -23,7 +36,9 @@ public class Player
     public String getMove()
     {
         //implement later
-        return "";
+        Scanner sc = new Scanner(System.in);
+        System.out.println(name+"'s move'");
+        return sc.next();
     }
     public void setCash(int cash)
     {
