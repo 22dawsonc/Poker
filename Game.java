@@ -1,9 +1,10 @@
 public class Game 
 {
-    private Card[] deck = new Card[52];
+    private List<Card> deck;
     Player[] players;
     public Game(Player[] players)
     {
+        deck = new ArrayList<Card>();
         this.players = players;
         String[] suits = {"d", "c", "s", "h"};
         int ct = 0;
@@ -12,20 +13,24 @@ public class Game
             for(int j = 0;j<4;j++)
             {
                 Card c = new Card(i, suits[j]);
-                deck[ct++] = c;
+                deck.set(ct++,c);
             }
         }
         for(int i = 51;i>0;i--)
         {
-            int num = (int)(Math.random()*deck.length);
-            Card temp = deck[i];
-            deck[i] = deck[num];
-            deck[num] = temp;
+            int num = (int)(Math.random()*deck.size());
+            Card temp = deck.get(i);
+            deck.set(i,deck.get(num));
+            deck.set(num, temp);
         }
-        Hand h = new Hand(deck[0], deck[1]);
-        Hand a = new Hand(deck[2], deck[3]);
+        Hand h = new Hand(deck.remove(0), deck.remove(0), this);
+        Hand a = new Hand(deck.remove(0), deck.remove(0), this);
         players[0].deal(h);
         players[1].deal(a);
+    }
+    public List<Card> getDeck()
+    {
+        return deck;
     }
     public void playHand()
     {
