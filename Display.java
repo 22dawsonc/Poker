@@ -10,6 +10,7 @@ import java.lang.System;
  * A display for the solitaire class and for playing solitaire
  * @authour Ms. Datar
  * @authour Harsh Deep
+ * @authour Dawson Chen
  * @version 11.2.18
  * 
  */
@@ -98,8 +99,8 @@ public class Display extends JComponent implements MouseListener
             Hand h = a[i].getHand();
             for(int j = 0;j<2;j++)
             {
-                h.getHand()[j].turnUp();
-                this.drawCard(g, h.getHand()[j], (int)(frame.size().getWidth()/2 - 10)+ (10*j), (int)(frame.size().getHeight() - 200) - 700*i);
+                h.getPocket()[j].turnUp();
+                this.drawCard(g, h.getPocket()[j], (int)(frame.size().getWidth()/2 - 10)+ (10*j), (int)(frame.size().getHeight() - 200) - 700*i);
             }
         }
 

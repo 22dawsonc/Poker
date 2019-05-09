@@ -1,7 +1,8 @@
+import java.util.*;
 public class Hand
 {
     private Card[] pocket = new Card[2];
-    private List<Cards> cards = new ArrayList<Cards>();
+    private List<Card> cards = new ArrayList<Card>();
     private Game game;
      public Hand(Card a, Card b, Game g)
      {
@@ -30,14 +31,14 @@ public class Hand
      public Card turn()
      {
         int rand = (int)(Math.random()*game.getDeck().size());
-        Card turn = game.remove(rand);
+        Card turn = game.getDeck().remove(rand);
         cards.add(turn);
         return turn;
      }
      public Card river()
      {
         int rand = (int)(Math.random()*game.getDeck().size());
-        Card river = game.remove(rand);
+        Card river = game.getDeck().remove(rand);
         cards.add(river);
         return river;
      }
