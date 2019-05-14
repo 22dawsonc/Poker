@@ -2,8 +2,11 @@ import java.util.*;
 public class Hand
 {
     private Card[] pocket = new Card[2];
+
     private List<Card> cards = new ArrayList<Card>();
+    
     private Game game;
+
      public Hand(Card a, Card b, Game g)
      {
          game = g;
@@ -12,10 +15,12 @@ public class Hand
          cards.add(pocket[0]);
          cards.add(pocket[1]);
      }
+
      public Card[] getPocket()
      {
          return pocket;
      }
+
      public Card[] flop()
      {
          Card[] flop = new Card[3];
@@ -28,6 +33,7 @@ public class Hand
          cards.add(flop[2]);
         return flop;
      }
+
      public Card turn()
      {
         int rand = (int)(Math.random()*game.getDeck().size());
@@ -35,6 +41,7 @@ public class Hand
         cards.add(turn);
         return turn;
      }
+
      public Card river()
      {
         int rand = (int)(Math.random()*game.getDeck().size());
@@ -42,6 +49,7 @@ public class Hand
         cards.add(river);
         return river;
      }
+     
      public double compareTo()
      {
          //the big boy method

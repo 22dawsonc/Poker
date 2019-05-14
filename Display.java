@@ -27,6 +27,7 @@ public class Display extends JComponent implements MouseListener
     private int selectedCol = -1;
     private long start;
     private Game game;
+
     public static void main(String[] args) 
     {
         
@@ -39,8 +40,9 @@ public class Display extends JComponent implements MouseListener
         p2.setDisplay(d);
         g.playHand();
     }
+
     /**
-     * Constructor for the SolitaireDisplay
+     * Constructor for the Display
      * @param game An instance of a solitaire match
      * 
      */

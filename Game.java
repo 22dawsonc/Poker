@@ -3,7 +3,9 @@ import java.util.*;
 public class Game 
 {
     private List<Card> deck;
+
     Player[] players;
+
     public Game(Player[] players)
     {
         deck = new ArrayList<Card>();
@@ -18,6 +20,7 @@ public class Game
                 deck.set(ct++,c);
             }
         }
+        //shuffles into random deck
         for(int i = 51;i>0;i--)
         {
             int num = (int)(Math.random()*deck.size());
