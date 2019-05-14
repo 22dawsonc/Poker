@@ -15,7 +15,7 @@ public class Game
             for(int j = 0;j<4;j++)
             {
                 Card c = new Card(i, suits[j]);
-                deck.set(ct++,c);
+                deck.add(c);
             }
         }
         for(int i = 51;i>0;i--)
