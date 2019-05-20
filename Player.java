@@ -4,8 +4,12 @@ public class Player
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Card a;
     private Card b;
+=======
+    private Hand h;
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
     private Hand h;
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
@@ -30,10 +34,16 @@ public class Player
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void deal(Card a, Card b)
     {
         this.a = a;
         this.b = b;
+=======
+    public void deal(Hand h)
+    {
+        this.h = h;
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
     public void deal(Hand h)
     {

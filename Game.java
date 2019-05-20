@@ -4,10 +4,13 @@ public class Game
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private int pot;
     private List<Card> deck;
     Player[] players;
 =======
+=======
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
     private List<Card> deck;
@@ -15,6 +18,9 @@ public class Game
     Player[] players;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
+=======
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
@@ -25,6 +31,10 @@ public class Game
         String[] suits = {"d", "c", "s", "h"};
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        int ct = 0;
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
         int ct = 0;
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
@@ -41,6 +51,10 @@ public class Game
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        //shuffles into random deck
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
         //shuffles into random deck
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
@@ -56,8 +70,11 @@ public class Game
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
         Hand h = new Hand(deck.remove(0), deck.remove(0), this);
@@ -65,6 +82,9 @@ public class Game
         players[0].deal(h);
         players[1].deal(a);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
+=======
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
@@ -77,7 +97,10 @@ public class Game
     {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
 =======
