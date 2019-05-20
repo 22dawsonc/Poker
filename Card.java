@@ -19,28 +19,6 @@ public class Card
         this.rank = rank;
         this.suit = suit;
     }
-    /**
-     * Gets the ranking value of this card;
-     *  the ranking Value is between 1 and 52 
-     *  inclusive and values the 2 of clubs the lowest and the ace of spades the highest
-     */
-    public int getEvaluation()
-    {
-        int i = 0;
-        String s = getSuit();
-        if(s.equals("c"))
-            i = 1;
-        else if(s.equals("d"))
-            i = 2;
-        else if(s.equals("h"))
-            i = 3;
-        else if(s.equals("s"))
-            i = 4;
-        if(rank == 1)
-            return i + 48;
-        else 
-            return i + (rank-2)*4; 
-    }
 
     /**
      * returns the rank
@@ -133,22 +111,7 @@ public class Card
      */
     public String toString()
     {
-        String temp;
-        String r = String.valueOf(rank);
-        if(r.equals("1"))
-            temp = "ace";
-        else if(r.equals("11"))
-            temp = "jack";
-        else if(r.equals("12"))
-            temp = "queen";
-        else if(r.equals("13"))
-            temp = "king";
-        else if(r.equals("10"))
-            temp = "ten";
-        else
-            temp = ""+rank;
-        return temp+" of "+suit+" Eval: "+getEvaluation();
-        
+        return rank+suit;
 
     }
 

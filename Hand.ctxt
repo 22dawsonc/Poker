@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=a\ b\ g
+comment0.target=Hand(Card,\ Card,\ Game)
+comment1.params=
+comment1.target=Card[]\ getPocket()
+comment2.params=
+comment2.target=Card[]\ flop()
+comment3.params=
+comment3.target=Card\ turn()
+comment4.params=
+comment4.target=Card\ river()
+comment5.params=
+comment5.target=double\ compareTo()
+numComments=6

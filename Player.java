@@ -2,8 +2,12 @@ import java.util.Scanner;
 
 public class Player
 {
+<<<<<<< HEAD
     private Card a;
     private Card b;
+=======
+    private Hand h;
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
     private int cash;
     private Display d;
     private String name;
@@ -20,10 +24,16 @@ public class Player
     {
         this.d= d;
     }
+<<<<<<< HEAD
     public void deal(Card a, Card b)
     {
         this.a = a;
         this.b = b;
+=======
+    public void deal(Hand h)
+    {
+        this.h = h;
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
     }
     public int getCash()
     {   
@@ -38,7 +48,13 @@ public class Player
     public String getMove()
     {
         //implement later
+<<<<<<< HEAD
         
+=======
+        Scanner sc = new Scanner(System.in);
+        System.out.println(name+"'s move'");
+        return sc.next();
+>>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
     }
     public void setCash(int cash)
     {
