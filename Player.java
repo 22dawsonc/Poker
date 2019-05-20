@@ -1,9 +1,9 @@
 import java.util.Scanner;
-import java.util.*;
+
 public class Player
 {
-    private Card o;
-    private Card t;
+    private Card a;
+    private Card b;
     private int cash;
     private Display d;
     private String name;
@@ -12,33 +12,22 @@ public class Player
         this.name = n;
         this.cash = cash;
     }
-    public String getName()
+    public Hand getHand()
     {
-        return name;
+        return h;
     }
     public void setDisplay(Display d)
     {
         this.d= d;
     }
-    public void deal(Card o, Card t)
+    public void deal(Card a, Card b)
     {
-        this.o = o;
-        this.t = t;
-    }
-    public List<Card> getCards()
-    {
-        List<Card> arr = new ArrayList<Card>();
-        arr.add(o);
-        arr.add(t);
-        return arr;
+        this.a = a;
+        this.b = b;
     }
     public int getCash()
     {   
         return cash;
-    }
-    public void widthdraw(int amt)
-    {
-        cash-=amt;
     }
     /**
      * The String codes for the command that the Player wants to do
@@ -49,9 +38,7 @@ public class Player
     public String getMove()
     {
         //implement later
-        Scanner sc = new Scanner(System.in);
-        System.out.println(name+"'s move'"+getCards());
-        return sc.next();
+        
     }
     public void setCash(int cash)
     {
