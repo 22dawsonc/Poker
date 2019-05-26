@@ -22,13 +22,15 @@ public class Server
     private int pot;
     private int call;
     private int[] evalTable;
-    private static final int BIG_BLIND = 50;
-    private static final int SMALL_BLIND = 30;
+    private static final int BIG_BLIND = 10;
     private List<Card> deck;
     private List<Player> p;
     private String[] winTypes;
     private String p1;
     private String p2;
+    private int blind;
+    private ArrayList<Card> c1;
+    private ArrayList<Card> c2;
     public static void main(String[] args)
     {
         Server server = new Server();
@@ -46,6 +48,9 @@ public class Server
      */
     public Server()
     {
+    	blind = 1;
+    	c1 = new ArrayList<Card>();
+    	c2 = new ArrayList<Card>();
         g = new Game();
         p1 = "a";
         p2 = "b";
@@ -111,34 +116,169 @@ public class Server
     public void playRound()
     {
     	pot = 0;
-    	call = 0;
         dealToPlayers();
-        pot+=SMALL_BLIND;
         pot+=BIG_BLIND;
-        //small blind gets to bet
-        call = BIG_BLIND-SMALL_BLIND;
-        sendString("ServerToa: ?<"+pot+"><"+call+">");
-        String s = awaitResponse();
-        if(s.equals("c"))
-        	pot+=call;
-        else if(s.equals("f"))
-        	sendString("Server: b wins");
-        else if(s.contains("r"))
-        {
-        	pot+=Integer.valueOf(s.substring(s.indexOf("r")+1));
-        	call+=Integer.valueOf(s.substring(s.indexOf("r")+1));
-        	sendString("ServerTob: ?<"+pot+"><"+call+">");
-        	s = awaitResponse();
-        	if(s.equals("c"))
-            	pot+=call;
-        	else if(s.equals("f"))
-            	sendString("Server: a wins");
-        }	
-        String send = "";
+        
+        
+        
         List<Card> c = new ArrayList<Card>();
         for(int i = 0;i<3;i++)
         	c.add(communityCards.get(i));
         sendString("Server: "+c);
+        //The above code is for the flop
+        int result = bettingRound();
+        if(result == 1) 
+        {
+        	System.out.println("1 wins. POT: "+pot);
+        	return;
+        }
+        else if(result == 2) 
+        {
+        	System.out.println("2 wins. POT: "+pot);
+        	return;
+        }
+        c = new ArrayList<Card>();
+        for(int i = 3;i<4;i++)
+        	c.add(communityCards.get(i));
+        sendString("Server: "+c);
+        //above is for turn
+        result = bettingRound();
+        if(result == 1) 
+        {
+        	System.out.println("1 wins. POT: "+pot);
+        	return;
+        }
+        else if(result == 2) 
+        {
+        	System.out.println("2 wins. POT: "+pot);
+        	return;
+        }
+        
+        c = new ArrayList<Card>();
+        for(int i = 4;i<5;i++)
+        	c.add(communityCards.get(i));
+        sendString("Server: "+c);
+        
+        //above is the river
+        result = bettingRound();
+        if(result == 1) 
+        {
+        	System.out.println("1 wins. POT: "+pot);
+        	return;
+        }
+        else if(result == 2) 
+        {
+        	System.out.println("2 wins. POT: "+pot);
+        	return;
+        }
+        String win = getWinner();
+        if(win.equals(p1)) 
+        {
+        	System.out.println(p1+" wins");
+        }
+        else 
+        {
+        	System.out.println(p2+" wins");
+        }
+    }
+    /**
+     * 0 means no one folded
+     * 1 means p1 wins
+     * 2 means p2 wins
+     * @return
+     */
+    public int bettingRound() 
+    {
+    	int cont1 = 0;
+    	int cont2 = 0;
+    	int player = 0;
+    	if(blind==1) 
+    	{
+    		sendString("ServerTo"+p1+": ?<"+pot+"><"+0+">");
+    		player = 2;
+    		String s = awaitResponse();
+    		s = s.substring(s.indexOf(":")+1);
+    		if(s.equals("f"))
+    		{
+    			return 2;
+    		}
+    		else if(s.contains("r")) 
+    		{
+    			int amt = Integer.valueOf(s.substring(1));
+    			cont1 += amt;
+    			pot+=amt;
+    		}
+    	}
+    	else
+    	{
+    		sendString("ServerTo"+p2+": ?<"+pot+"><"+0+">");
+    		player = 1;
+    		String s = awaitResponse();
+    		s = s.substring(s.indexOf(":")+1);
+    		if(s.equals("f"))
+    		{
+    			return 1;
+    		}
+    		else if(s.contains("r")) 
+    		{
+    			int amt = Integer.valueOf(s.substring(1));
+    			cont2 += amt;
+    			pot +=amt;
+    		}
+    	}
+    	do 
+    	{
+    		if(player == 1) 
+    		{
+    			sendString("ServerTo"+p1+": ?<"+pot+"><"+(cont2-cont1)+">");
+    			String s = awaitResponse();
+    			s = s.substring(s.indexOf(":")+1);
+    			if(s.equals("f"))
+        		{
+        			return 2;
+        		}
+    			else if(s.equals("c")) 
+        		{
+        			int amt = cont2-cont1;
+        			cont1 += amt;
+        			pot +=amt;
+        		}
+    			else if(s.contains("r")) 
+        		{
+        			int amt = Integer.valueOf(s.substring(1));
+        			amt+=cont2-cont1;
+        			cont1 += amt;
+        			pot +=amt;
+        		}
+    		}
+    		else 
+    		{
+    			sendString("ServerTo"+p2+": ?<"+pot+"><"+(cont1-cont2)+">");
+    			String s = awaitResponse();
+    			s = s.substring(s.indexOf(":")+1);
+    			if(s.equals("f"))
+        		{
+        			return 1;
+        		}
+    			else if(s.equals("c")) 
+        		{
+        			int amt = cont1-cont2;
+        			cont2 += amt;
+        			pot +=amt;
+        		}
+    			else if(s.contains("r")) 
+        		{
+        			int amt = Integer.valueOf(s.substring(1));
+        			amt+=cont1-cont2;
+        			cont2 += amt;
+        			pot +=amt;
+        		}
+    		}
+    		
+    	}while(cont1!=cont2);
+    	return 0;
+    	
+    	
     }
     public String awaitResponse() 
     {
@@ -159,16 +299,21 @@ public class Server
         String s1 = "ServerTo"+p1+": ";
         String s2 = "ServerTo"+p2+": ";
         List<String> car = new ArrayList<String>();
-        car.add(deck.remove(0).toString());
-        car.add(deck.remove(0).toString());
+        
+        c1.add(deck.remove(0));
+        c1.add(deck.remove(0));
+        car.add(c1.get(0).toString());
+        car.add(c1.get(1).toString());
         s1+= car.toString();
         car.remove(0);
         car.remove(0);
-        car.add(deck.remove(0).toString());
-        car.add(deck.remove(0).toString());
+        c2.add(deck.remove(0));
+        c2.add(deck.remove(0));
+        car.add(c2.get(0).toString());
+        car.add(c2.get(1).toString());
         s2+= car.toString();
         sendString(s1);
-        try {Thread.sleep(100);}
+        try {Thread.sleep(300);}
         catch(Exception e)
         {e.printStackTrace();}
         sendString(s2);
@@ -205,29 +350,26 @@ public class Server
         return communityCards;
     }
 
-    public Player getWinner()
+    public String getWinner()
     {   
-        int[] vals = new int[p.size()];
-        for(int i = 0;i<vals.length;i++)
-        {
+	
             List<Card> b = new ArrayList<Card>(communityCards);
-            b.addAll(p.get(i).getCards());
-            System.out.println(b);
+            b.addAll(c1);
             int[] a = new int[7];
             for(int j = 0;j<a.length;j++)
                 a[j] = b.get(j).getEvaluation();
-            vals[i] = eval(a);
-        }
-        int maxInd = 0;
-        for(int i = 1;i<vals.length;i++)
-            if(vals[i]>vals[maxInd])
-                maxInd = i;
-        System.out.println(maxInd);
-        int i = vals[maxInd]>>12;
-        System.out.println(p.get(maxInd).getName()+" wins with a "+winTypes[i]);
-        p.get(maxInd).widthdraw(-pot);
-        pot = 0;
-        return p.get(maxInd);
+            int score1 = eval(a);
+            b = new ArrayList<Card>(communityCards);
+            b.addAll(c2);
+            a = new int[7];
+            for(int j = 0;j<a.length;j++)
+                a[j] = b.get(j).getEvaluation();
+            int score2 = eval(a);
+       if(score1>score2) 
+       {
+    	   return p1;
+       }
+        return p2;
     }
 
     public int eval(int[] a) 

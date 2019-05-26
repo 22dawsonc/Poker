@@ -55,7 +55,7 @@ public class Player
         //implement later
         Scanner sc = new Scanner(System.in);
         System.out.println(name+"'s move'"+getCards());
-        String s =  "c"; // get input here
+        String s = sc.next();
         return s;
     }
     public void setCash(int cash)

@@ -64,7 +64,10 @@ public class RemotePlayer extends Player
 
     public void getInput()
     {
-        sendString(getName()+": "+super.getMove());
+    	Scanner sc = new Scanner(System.in);
+        System.out.println(getName()+"'s move'"+getCards());
+        String s = sc.next();
+        sendString(getName()+":"+s);
     }
 
     public void parseInput(String m)

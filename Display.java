@@ -26,15 +26,16 @@ public class Display extends JComponent implements KeyListener
     private int selectedRow = -1;
     private int selectedCol = -1;
     private long start;
-    private Game game;
+    private RemotePlayer p;
 
     /**
      * Constructor for the Display
      * @param game An instance of a solitaire match
      * 
      */
-    public Display(Game game)
+    public Display(RemotePlayer p)
     {
+    	this.p = p;
         Runnable runnable = new Runnable() {    
                 public void run() {  
                     while (true) {      
@@ -49,7 +50,6 @@ public class Display extends JComponent implements KeyListener
             };
         new Thread(runnable).start();
         start = System.nanoTime();
-        this.game = game;
 
         frame = new JFrame("Poker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,31 +71,31 @@ public class Display extends JComponent implements KeyListener
      */
     public void paintComponent(Graphics g)
     {
-//         /*
-//          * To be done by graphics person
-//          */
-//         //background
-//         //rgb(17, 175, 41)
-//         g.setColor(Color.GRAY);
-//         g.fillRect(0, 0, getWidth(), getHeight());
-//         g.setColor(new Color(0,0,0));
-//         g.fillOval(25, 25, (int)(frame.size().getWidth() - 50), (int)(frame.size().getHeight()-50));
-// 
-//         g.setColor(new Color(17, 175, 41));
-//         g.fillOval(100, 100, (int)(frame.size().getWidth() - 200), (int)(frame.size().getHeight()-200));
-//         Card c = new Card(10, "h");
-//         c.turnUp();
-//         Player[] a= game.getPlayers();
-// 
-//         for(int i = 0;i<a.length;i++)
-//         {
-//             Hand h = a[i].getHand();
-//             for(int j = 0;j<2;j++)
-//             {
-//                 h.getPocket()[j].turnUp();
-//                 this.drawCard(g, h.getPocket()[j], (int)(frame.size().getWidth()/2 - 10)+ (10*j), (int)(frame.size().getHeight() - 200) - 700*i);
-//             }
-//         }
+         /*
+          * To be done by graphics person
+          */
+         //background
+         //rgb(17, 175, 41)
+         g.setColor(Color.GRAY);
+         g.fillRect(0, 0, getWidth(), getHeight());
+         g.setColor(new Color(0,0,0));
+         g.fillOval(25, 25, (int)(frame.size().getWidth() - 50), (int)(frame.size().getHeight()-50));
+ 
+         g.setColor(new Color(17, 175, 41));
+         g.fillOval(100, 100, (int)(frame.size().getWidth() - 200), (int)(frame.size().getHeight()-200));
+         Card c = new Card(10, "h");
+         c.turnUp();
+         
+ 
+         for(int i = 0;i<a.length;i++)
+         {
+             Hand h = a[i].getHand();
+             for(int j = 0;j<2;j++)
+             {
+                 h.getPocket()[j].turnUp();
+                 this.drawCard(g, h.getPocket()[j], (int)(frame.size().getWidth()/2 - 10)+ (10*j), (int)(frame.size().getHeight() - 200) - 700*i);
+             }
+         }
 
     }
     /**
