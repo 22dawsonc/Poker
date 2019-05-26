@@ -5,7 +5,6 @@ public class Player
     private Card o;
     private Card t;
     private int cash;
-    private Display d;
     private String name;
     public Player(int cash, String n)
     {
@@ -15,14 +14,6 @@ public class Player
     public String getName()
     {
         return name;
-    }
-    public void setDisplay(Display d)
-    {
-        this.d= d;
-    }
-    public Display getDisplay()
-    {
-        return d;
     }
     public void deal(Card o, Card t)
     {

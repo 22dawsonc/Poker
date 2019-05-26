@@ -112,15 +112,133 @@ public class Server
         for(int i = 0;i<5;i++)
             communityCards.add(deck.remove(0));
     }
+    public int preflop() 
+    {
+    	int cont1 = 0;
+    	int cont2 = 0;
+    	pot+=BIG_BLIND;
+    	int player = 1;
+    	if(blind==1) 
+    	{
+    		cont1 +=BIG_BLIND;
+    		player = 2;
+    	}
+    	else 
+    	{
+    		cont2+=BIG_BLIND;
+    		player = 1;
+    	}
+    	//----------------------------- 
+    	if(player == 1) 
+		{
+			sendString("ServerTo"+p1+": ?<"+pot+"><"+(cont2-cont1)+">");
+			String s = awaitResponse();
+			s = s.substring(s.indexOf(":")+1);
+			if(s.equals("f"))
+    		{
+    			return 2;
+    		}
+			else if(s.equals("c")) 
+    		{
+    			int amt = cont2-cont1;
+    			cont1 += amt;
+    			pot +=amt;
+    		}
+			else if(s.contains("r")) 
+    		{
+    			int amt = Integer.valueOf(s.substring(1));
+    			amt+=cont2-cont1;
+    			cont1 += amt;
+    			pot +=amt;
+    		}
+			player = 2;
+		}
+		else 
+		{
+			sendString("ServerTo"+p2+": ?<"+pot+"><"+(cont1-cont2)+">");
+			String s = awaitResponse();
+			s = s.substring(s.indexOf(":")+1);
+			if(s.equals("f"))
+    		{
+    			return 1;
+    		}
+			else if(s.equals("c")) 
+    		{
+    			int amt = cont1-cont2;
+    			cont2 += amt;
+    			pot +=amt;
+    		}
+			else if(s.contains("r")) 
+    		{
+    			int amt = Integer.valueOf(s.substring(1));
+    			amt+=cont1-cont2;
+    			cont2 += amt;
+    			pot +=amt;
+    		}
+			player = 1;
+		}	
+    	
+    	do 
+    	{
+    		if(player == 1) 
+    		{
+    			sendString("ServerTo"+p1+": ?<"+pot+"><"+(cont2-cont1)+">");
+    			String s = awaitResponse();
+    			s = s.substring(s.indexOf(":")+1);
+    			if(s.equals("f"))
+        		{
+        			return 2;
+        		}
+    			else if(s.equals("c")) 
+        		{
+        			int amt = cont2-cont1;
+        			cont1 += amt;
+        			pot +=amt;
+        		}
+    			else if(s.contains("r")) 
+        		{
+        			int amt = Integer.valueOf(s.substring(1));
+        			amt+=cont2-cont1;
+        			cont1 += amt;
+        			pot +=amt;
+        		}
+    			player = 2;
+    		}
+    		else 
+    		{
+    			sendString("ServerTo"+p2+": ?<"+pot+"><"+(cont1-cont2)+">");
+    			String s = awaitResponse();
+    			s = s.substring(s.indexOf(":")+1);
+    			if(s.equals("f"))
+        		{
+        			return 1;
+        		}
+    			else if(s.equals("c")) 
+        		{
+        			int amt = cont1-cont2;
+        			cont2 += amt;
+        			pot +=amt;
+        		}
+    			else if(s.contains("r")) 
+        		{
+        			int amt = Integer.valueOf(s.substring(1));
+        			amt+=cont1-cont2;
+        			cont2 += amt;
+        			pot +=amt;
+        		}
+    			player = 1;
+    		}
+    		
+    	}while(cont1!=cont2);
+    	return 0;
+    	
+    }
 
     public void playRound()
     {
     	pot = 0;
         dealToPlayers();
-        pot+=BIG_BLIND;
-        
-        
-        
+        preflop();
         List<Card> c = new ArrayList<Card>();
         for(int i = 0;i<3;i++)
         	c.add(communityCards.get(i));
@@ -250,6 +368,7 @@ public class Server
         			cont1 += amt;
         			pot +=amt;
         		}
+    			player = 2;
     		}
     		else 
     		{
@@ -273,6 +392,7 @@ public class Server
         			cont2 += amt;
         			pot +=amt;
         		}
+    			player = 1;
     		}
     		
     	}while(cont1!=cont2);
