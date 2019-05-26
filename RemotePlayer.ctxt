@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=args
+comment0.target=void\ main(java.lang.String[])
+comment1.params=cash\ n
+comment1.target=RemotePlayer(int,\ java.lang.String)
+comment2.params=s
+comment2.target=void\ sendString(java.lang.String)
+comment3.params=
+comment3.target=void\ getInput()
+comment4.params=m
+comment4.target=void\ parseInput(java.lang.String)
+comment5.params=
+comment5.target=java.util.List\ getCommunityCards()
+comment6.params=s
+comment6.target=java.util.List\ parseList(java.lang.String)
+comment6.text=\r\n\ [element1,\ element2,\ element3]\r\n
+numComments=7

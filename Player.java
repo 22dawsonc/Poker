@@ -20,6 +20,10 @@ public class Player
     {
         this.d= d;
     }
+    public Display getDisplay()
+    {
+        return d;
+    }
     public void deal(Card o, Card t)
     {
         this.o = o;
@@ -51,7 +55,8 @@ public class Player
         //implement later
         Scanner sc = new Scanner(System.in);
         System.out.println(name+"'s move'"+getCards());
-        return sc.next();
+        String s =  "c"; // get input here
+        return s;
     }
     public void setCash(int cash)
     {

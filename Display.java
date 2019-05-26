@@ -15,6 +15,7 @@ import java.lang.System;
  */
 public class Display extends JComponent implements KeyListener
 {
+    private String s;
     private static final int CARD_WIDTH = 73;
     private static final int CARD_HEIGHT = 97;
     private static final int SPACING = 5;  //distance between cards
@@ -97,6 +98,16 @@ public class Display extends JComponent implements KeyListener
 //         }
 
     }
+    /**
+     * Gets the input
+     * 
+     */
+    public String getInput()
+    {
+        String t = s;
+        s = null;
+        return t;
+    }   
 
     /**
      * Draws Cards
@@ -131,15 +142,17 @@ public class Display extends JComponent implements KeyListener
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_F) {
-            System.out.println("fold");
+            s+="f";
         }
         if (key == KeyEvent.VK_C) {
-            System.out.println("call");
+            s+="c";
         }
         if(key == KeyEvent.VK_R)
         {
-            System.out.println("raise");
+            s+="r";
         }
+        if(s.contains("r")&& (key <=0x39 && key>=0x30))
+            s+=key;
     }
 
     /** Handle the key-released event from the text field. */

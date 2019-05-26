@@ -17,10 +17,11 @@ public class Game
 
         Game g = new Game();
         Player p1 = new Player(1000, "hdeep03");
-        Player p2 = new Player(3000, "a");
+        Player p2 = new RemotePlayer(3000, "a");
         g.addPlayer(p1);
         g.addPlayer(p2);
         g.play();
+
     }
     private List<Card> deck;
     private List<Player> p;
@@ -45,7 +46,8 @@ public class Game
         bBlind = 0;
         sBlind = 1;
         winTypes = a;
-        evalTable = loadHandRankResource("HandRanks.dat");
+        evalTable = 
+        loadHandRankResource("HandRanks.dat");
         communityCards = new ArrayList<Card>();
         p = new ArrayList<Player>();
         deck = new ArrayList<Card>();
@@ -70,6 +72,7 @@ public class Game
         for(int i = 0;i<5;i++)
             communityCards.add(deck.remove(0));
     }
+
     /**
      * Plays 1 game of Texas hold'em poker
      */
@@ -91,20 +94,23 @@ public class Game
             System.out.print(communityCards.get(i)+" ");
         System.out.println();
         getMoves();
-        System.out.println("TURN: "+communityCards.get(3));
+        //System.out.println("TURN: "+communityCards.get(3));
         getMoves();
-        System.out.println("RIVER: "+communityCards.get(4));
+        //System.out.println("RIVER: "+communityCards.get(4));
         getMoves();
         getWinner();
+        /*
         for(Player player: p)
-            System.out.println(player.getName()+" "+player.getCash());
-        
+        System.out.println(player.getName()+" "+player.getCash());
+         */
+
     }
 
     public List<Player> getPlayers()
     {
         return p;
     }
+
     public void getMoves()
     {
         for(int i = 0;i<p.size();i++)
@@ -174,14 +180,14 @@ public class Game
     }
 
     public int eval(int[] a) 
-	{
-		int b = 53;
-		for(int i:a) 
-		{
-			b = evalTable[b+i];
-		}
-		return b;
-	}
+    {
+        int b = 53;
+        for(int i:a) 
+        {
+            b = evalTable[b+i];
+        }
+        return b;
+    }
 
     private static int[] loadHandRankResource(String name)
     throws RuntimeException {
@@ -196,7 +202,7 @@ public class Game
                 if (bytesRead != tableSize) {
                     System.err.print("Read " + bytesRead + " bytes out of " + tableSize);
                 }
-               // System.err.print("Read " + bytesRead + " bytes out of " + tableSize);
+                // System.err.print("Read " + bytesRead + " bytes out of " + tableSize);
             } finally {
                 br.close();
             }
@@ -208,7 +214,6 @@ public class Game
             throw new RuntimeException("cannot read resource " + name, e);
         }
     }
-
     private static final int littleEndianByteArrayToInt(byte[] b, int offset) {
         return (b[offset + 3] << 24) + ((b[offset + 2] & 0xFF) << 16)
         + ((b[offset + 1] & 0xFF) << 8) + (b[offset] & 0xFF);
