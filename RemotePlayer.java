@@ -25,7 +25,6 @@ public class RemotePlayer extends Player
     public RemotePlayer(int cash, String n)
     {
         super(cash, n);
-        d = new Display(this);
         communityCards = new ArrayList<Card>();
         String[] args = new String[2];
         args[0] = "239.0.0.0";
@@ -93,6 +92,8 @@ public class RemotePlayer extends Player
                     cards.add(Card.reconstructCard(l));
                 deal(cards.get(0), cards.get(1));
                 System.out.println(this.getCards());
+                d = new Display(this);
+                
             }else if(m.contains("?"))// ?<pot><amt to call> is the keyword that will be used to indicate and request to input
             {
                 String s = m.substring(m.indexOf("?")+1);
