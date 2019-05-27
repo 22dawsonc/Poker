@@ -36,6 +36,7 @@ public class Display extends JFrame implements MouseListener
      */
     public Display(RemotePlayer plr)
     {
+    	input = "";
     	player = plr;
         Runnable runnable = new Runnable() {    
                 public void run() {  
