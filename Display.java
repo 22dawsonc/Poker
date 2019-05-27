@@ -12,44 +12,14 @@ import java.lang.System;
 /**
  * 
  * A display for the solitaire class and for playing solitaire
-<<<<<<< HEAD
- * @authour Ms. Datar
- * @authour Harsh Deep
- * @authour Dawson Chen
- * @version 11.2.18
- * 
- */
-public class Display extends JComponent implements MouseListener, KeyListener
-=======
  * @author Harsh Deep
  * @author Dawson Chen
  * @version 11.2.18
  * 
  */
-public class Display extends JFrame implements MouseListener
->>>>>>> Merger
+public class Display extends JFrame
 {
     private JFrame frame;
-<<<<<<< HEAD
-    private int selectedRow = -1;
-    private int selectedCol = -1;
-    private long start;
-    private Game game;
-
-    public static void main(String[] args) 
-    {
-
-        Player p1 = new Player(100,"test1");
-        Player p2 = new Player(100,"test2");
-        Player[] players = {p1, p2};
-        Game g = new Game(players);
-        Display d = new Display(g);
-        p1.setDisplay(d);
-        p2.setDisplay(d);
-        g.playHand();
-    }
-
-=======
     private RemotePlayer player;
     private JPanel bar;
     private JPanel p;
@@ -60,7 +30,6 @@ public class Display extends JFrame implements MouseListener
     private String input;
     
     public static void main(String[] args) {new Display(null);}
->>>>>>> Merger
     /**
      * Constructor for the Display
      * @param game An instance of a solitaire match
@@ -86,26 +55,6 @@ public class Display extends JFrame implements MouseListener
 
         frame = new JFrame("Poker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-<<<<<<< HEAD
-        frame.getContentPane().add(this);
-        // frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        frame.setUndecorated(false); 
-        //this.setPreferredSize(new Dimension(CARD_WIDTH * 7 + SPACING * 8, CARD_HEIGHT * 2 + SPACING * 3 + FACE_DOWN_OFFSET * 7 + 13 * FACE_UP_OFFSET));
-        this.setPreferredSize(new Dimension(400,500));
-        frame.setSize(2000,2000);
-        this.addMouseListener(this);
-        frame.addKeyListener(this);
-
-        //         JButton b = new JButton("Fold");
-        //         b.addActionListener(new ActionListener(){  
-        //                 public void actionPerformed(ActionEvent e){  
-        //                     System.out.println("Folded");  
-        //                 }  
-        //             });
-        //         b.setBounds(50,50,50,50);
-        //         frame.add(b);  
-        frame.pack();
-=======
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setPreferredSize(screenSize);
         frame.setSize(screenSize);
@@ -178,7 +127,6 @@ public class Display extends JFrame implements MouseListener
         //stuff in the big Panel
         frame.add(p);
         frame.add(bar, BorderLayout.SOUTH);
->>>>>>> Merger
         frame.setVisible(true);
 
     }
@@ -190,42 +138,10 @@ public class Display extends JFrame implements MouseListener
         int imageHeight = image.getHeight(null);
         double aspectRatio = (double) imageWidth / (double) imageHeight;
 
-<<<<<<< HEAD
-    /**
-     * Paints the field
-     * 
-     * @param g graphics to paint on
-     * 
-     */
-    public void paintComponent(Graphics g)
-    {
-        //background
-        //rgb(17, 175, 41)
-        g.setColor(Color.GRAY);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(new Color(0,0,0));
-        g.fillOval(25, 25, (int)(frame.size().getWidth() - 50), (int)(frame.size().getHeight()-50));
-
-        g.setColor(new Color(17, 175, 41));
-        g.fillOval(100, 100, (int)(frame.size().getWidth() - 200), (int)(frame.size().getHeight()-200));
-        Card c = new Card(10, "h");
-        c.turnUp();
-        Player[] a = game.getPlayers();
-
-        for(int i = 0;i<a.length;i++)
-        {
-            Hand h = a[i].getHand();
-            for(int j = 0;j<2;j++)
-            {
-                h.getPocket()[j].turnUp();
-                this.drawCard(g, h.getPocket()[j], (int)(frame.size().getWidth()/2 - 10)+ (10*j), (int)(frame.size().getHeight() - 200) - 700*i);
-            }
-=======
         if (thumbRatio < aspectRatio) {
             newHeight = (int) (newWidth / aspectRatio);
         } else {
             newWidth = (int) (newHeight * aspectRatio);
->>>>>>> Merger
         }
 
         // Draw the scaled image
@@ -244,92 +160,4 @@ public class Display extends JFrame implements MouseListener
     	input = "";
     	return temp;
     }
-    public void paintComponent(Graphics g) {
-    	
-    }
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-<<<<<<< HEAD
-    }
-
-    /**
-     * handles event
-     * 
-     * @param e a MouseEvent
-     */
-    public void mouseExited(MouseEvent e)
-    {
-
-    }
-
-    /**
-     * handles event
-     * 
-     * @param e a MouseEvent
-     */
-    public void mouseEntered(MouseEvent e)
-    {
-
-    }
-
-    /**
-     * handles event
-     * 
-     * @param e a MouseEvent
-     */
-    public void mouseReleased(MouseEvent e)
-    {
-
-    }
-
-    /**
-     * handles event
-     * 
-     * @param e a MouseEvent
-     */
-    public void mousePressed(MouseEvent e)
-    {
-
-    }
-
-    /**
-     * handles event
-     * 
-     * @param e a MouseEvent
-     */
-
-    public void mouseClicked(MouseEvent e)
-    {
-        repaint();
-    }
-=======
->>>>>>> Merger
 }

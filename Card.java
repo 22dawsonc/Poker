@@ -127,9 +127,6 @@ public class Card
      */
     public String toString()
     {
-<<<<<<< HEAD
-        return rank+suit;
-=======
         String temp;
         String r = String.valueOf(rank);
         if(r.equals("1"))
@@ -146,7 +143,6 @@ public class Card
             temp = ""+rank;
         return temp+" of "+suit;
         
->>>>>>> Merger
 
     }
 
