@@ -15,6 +15,7 @@ public class RemotePlayer extends Player
     private InetAddress group; 
     private int port; 
     private Display d;
+    private int pot;
     private static final int MAX_LEN = 1000; 
     public static void main(String[] args)
     {
@@ -46,6 +47,10 @@ public class RemotePlayer extends Player
             ie.printStackTrace();
         }
         sendString("rtg");
+    }
+    public int getPot()
+    {
+    	return pot;
     }
 
     public void sendString(String s)
@@ -98,7 +103,7 @@ public class RemotePlayer extends Player
                 int pot = Integer.valueOf(s.substring(1, s.indexOf(">")));
                 s = s.substring(s.indexOf(">")+1);
                 int amt = Integer.valueOf(s.substring(1, s.indexOf(">")));
-                
+                this.pot = pot;
                 System.out.println("Your turn! Pot "+pot+" amount to call "+amt);
                 getInput();
             }
@@ -117,7 +122,6 @@ public class RemotePlayer extends Player
             communityCards.addAll(cards);
             for(Card c: communityCards) {
             	System.out.println(c.toString());
-            	//show in display
             }
                 
         }

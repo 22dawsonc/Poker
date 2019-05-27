@@ -17,15 +17,18 @@ import java.lang.System;
  * @version 11.2.18
  * 
  */
-public class Display extends JFrame implements MouseListener
+public class Display extends JComponent
 {
-    private JFrame frame;
+    private static final int CARD_WIDTH = 73*2;
+	private static final int CARD_HEIGHT = 97*2;
+	private JFrame frame;
     private RemotePlayer player;
     private JPanel bar;
     private JPanel p;
     private JButton c;
     private JButton f;
     private JButton r;
+    private JTextField t;
     private JLabel pot;
     private String input;
     
@@ -53,11 +56,12 @@ public class Display extends JFrame implements MouseListener
             };
         new Thread(runnable).start();
 
-        frame = new JFrame("Poker");
+        frame = new JFrame(player.getName());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = new Dimension(1700, 1000);
         frame.setPreferredSize(screenSize);
         frame.setSize(screenSize);
+        frame.setResizable(false);
         c = new JButton("Check/Call");
         c.addActionListener(new ActionListener() {
 			@Override
@@ -74,20 +78,24 @@ public class Display extends JFrame implements MouseListener
 				input = "f";
 			}
         });
-        r = new JButton("Raise $10");
+        r = new JButton("Raise: ");
+        t = new JTextField(5);
+        
         r.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				input = "r10";
+				input = "r"+t.getText();
 			}
         });
-        pot = new JLabel("Pot: $10");
+        frame.getContentPane().add(this);
+        pot = new JLabel("Pot: ");
         bar = new JPanel();
         bar.setBackground(new Color(0,100,0));
         bar.add(c);
         bar.add(f);
         bar.add(r);
+        bar.add(t);
         bar.add(pot); 
         p = new JPanel(new GridBagLayout());
         p.setBackground(new Color(0,80,0));
@@ -95,6 +103,7 @@ public class Display extends JFrame implements MouseListener
         List<Card> a = player.getCards();
 		try {
 			myPicture = ImageIO.read(new File(a.get(0).getFileName()));
+			myPicture = Display.scaleImage(myPicture, BufferedImage.TYPE_INT_RGB, (int)(myPicture.getWidth()*1.5),(int)( myPicture.getHeight()*1.5));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -104,22 +113,21 @@ public class Display extends JFrame implements MouseListener
         BufferedImage myPicture1 = null;
 		try {
 			myPicture1 = ImageIO.read(new File(a.get(1).getFileName()));
-			myPicture1 = Display.scaleImage(myPicture1, BufferedImage.TYPE_INT_RGB, myPicture1.getWidth()*2, myPicture1.getHeight()*2);
+			myPicture1 = Display.scaleImage(myPicture1, BufferedImage.TYPE_INT_RGB, (int)(myPicture1.getWidth()*1.5),(int)( myPicture1.getHeight()*1.5));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         JLabel picLabel1 = new JLabel(new ImageIcon(myPicture1));
         p.setLayout(null);
+        frame.pack();
         int w = (int)(picLabel1.getPreferredSize().getWidth());
         int h = (int)(picLabel1.getPreferredSize().getHeight());
-        int w1 =(int)(frame.getBounds().getWidth()/2) ;
-        int h1 = (int)(frame.getBounds().getHeight()*0.69);
-        w1 = 420;
-        h1 = 450;
+        int w1 =(int)(830 - w) ;
+        int h1 = (int)(700);
         System.out.println("" + w1 + " " + h1 + " " + (w1+w) + " " + (h1+h));
-        picLabel1.setBounds(w1,h1,w1+w ,h1+h );
-        picLabel.setBounds(w1+20,h1, w1+w+20, h1+h);
+        picLabel1.setBounds(w1,h1, w ,h );
+        picLabel.setBounds(w1+w,h1, w+w, h);
         p.add(picLabel);
         p.add(picLabel1);
         
@@ -159,37 +167,35 @@ public class Display extends JFrame implements MouseListener
     	input = "";
     	return temp;
     }
+
+	private void drawCard(Graphics g, Card card, int x, int y) {
+		if (card == null) {
+			String fileName = ".//cards//imgCards.png";
+			Image image = new ImageIcon(fileName).getImage();
+			g.drawImage(image, x, y, CARD_WIDTH, CARD_HEIGHT, null);
+		} else {
+			String fileName = card.getFileName();
+			if (!new File(fileName).exists())
+				throw new IllegalArgumentException("bad file name:  " + fileName);
+			Image image = new ImageIcon(fileName).getImage();
+			g.drawImage(image, x, y, CARD_WIDTH, CARD_HEIGHT, null);
+		}
+	}	
     public void paintComponent(Graphics g) {
-    	
+    	if(player.getCommunityCards().size()!=0)
+    	{
+    		List<Card> c = player.getCommunityCards();
+    		//System.out.println("drawing cards");
+
+        	int dist = (int)(820 - 109*2.5);
+        	for(int i = c.size();i<5;i++)
+        		c.add(null);
+        	
+        	for(int i = 0;i<5;i++) 
+        	{
+        		drawCard(g, c.get(i), dist+190*i, 350);
+        	}	
+    	}
+    	pot.setText("Pot: "+player.getPot());
     }
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
