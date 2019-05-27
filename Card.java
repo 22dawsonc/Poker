@@ -8,6 +8,25 @@ public class Card
     private int rank;
     private String suit;
     private boolean isFaceUp;
+    public static Card reconstructCard(String s)
+    {
+        String suit = s.substring(s.indexOf("of ")+3);
+        String tmp = s.substring(0, s.indexOf(" "));
+        int rank = -1;
+        if(tmp.equals("ace"))
+            rank = 1;
+        else if(tmp.equals("king"))
+            rank = 13;
+        else if(tmp.equals("queen"))
+            rank = 12;
+        else if(tmp.equals("jack"))
+            rank = 11;
+        else if(tmp.equals("ten"))
+            rank = 10;
+        else
+            rank = Integer.valueOf(tmp);
+        return new Card(rank, suit);
+    }
     /**
      * default constructor for a card
      * @param rank the integer that is the rank of the card
@@ -83,10 +102,7 @@ public class Card
      */
     public String getFileName()
     {
-        if(!isFaceUp)
-        {
-            return "cards\\backapcsds.gif";
-        }
+
         String temp;
         String r = String.valueOf(rank);
         if(r.equals("1"))
@@ -111,7 +127,26 @@ public class Card
      */
     public String toString()
     {
+<<<<<<< HEAD
         return rank+suit;
+=======
+        String temp;
+        String r = String.valueOf(rank);
+        if(r.equals("1"))
+            temp = "ace";
+        else if(r.equals("11"))
+            temp = "jack";
+        else if(r.equals("12"))
+            temp = "queen";
+        else if(r.equals("13"))
+            temp = "king";
+        else if(r.equals("10"))
+            temp = "ten";
+        else
+            temp = ""+rank;
+        return temp+" of "+suit;
+        
+>>>>>>> Merger
 
     }
 

@@ -5,6 +5,7 @@ comment1.params=
 comment1.target=Hand\ getHand()
 comment2.params=d
 comment2.target=void\ setDisplay(Display)
+<<<<<<< HEAD
 comment3.params=h
 comment3.target=void\ deal(Hand)
 comment4.params=
@@ -15,3 +16,21 @@ comment5.text=\r\n\ The\ String\ codes\ for\ the\ command\ that\ the\ Player\ wa
 comment6.params=cash
 comment6.target=void\ setCash(int)
 numComments=7
+=======
+comment3.params=
+comment3.target=Display\ getDisplay()
+comment4.params=o\ t
+comment4.target=void\ deal(Card,\ Card)
+comment5.params=
+comment5.target=java.util.List\ getCards()
+comment6.params=
+comment6.target=int\ getCash()
+comment7.params=amt
+comment7.target=void\ widthdraw(int)
+comment8.params=
+comment8.target=java.lang.String\ getMove()
+comment8.text=\r\n\ The\ String\ codes\ for\ the\ command\ that\ the\ Player\ wants\ to\ do\r\n\ \ \ "c"\ -\ means\ call\r\n\ \ \ "r"+\ number\ -\ the\ number\ is\ how\ much\ this\ player\ wishes\ to\ raise\ by.\r\n\ \ \ "f"\ -\ folds\ for\ this\ player\r\n
+comment9.params=cash
+comment9.target=void\ setCash(int)
+numComments=10
+>>>>>>> Merger

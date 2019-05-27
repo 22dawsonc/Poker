@@ -17,7 +17,6 @@ public class Player
     private Hand h;
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
     private int cash;
-    private Display d;
     private String name;
     public Player(int cash, String n)
     {
@@ -28,6 +27,7 @@ public class Player
     {
         return h;
     }
+<<<<<<< HEAD
     public void setDisplay(Display d)
     {
         this.d= d;
@@ -36,6 +36,9 @@ public class Player
 <<<<<<< HEAD
 <<<<<<< HEAD
     public void deal(Card a, Card b)
+=======
+    public void deal(Card o, Card t)
+>>>>>>> Merger
     {
         this.a = a;
         this.b = b;
@@ -72,9 +75,15 @@ public class Player
         
 =======
         Scanner sc = new Scanner(System.in);
+<<<<<<< HEAD
         System.out.println(name+"'s move'");
         return sc.next();
 >>>>>>> parent of f76f607... Major Design Changes, added hand evaluation and ranking.
+=======
+        System.out.println(name+"'s move'"+getCards());
+        String s = sc.next();
+        return s;
+>>>>>>> Merger
     }
     public void setCash(int cash)
     {

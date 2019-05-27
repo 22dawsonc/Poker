@@ -2,11 +2,22 @@
 dependency1.from=Player
 dependency1.to=Hand
 dependency1.type=UsesDependency
+<<<<<<< HEAD
 dependency10.from=Hand
 dependency10.to=Game
 dependency10.type=UsesDependency
 dependency2.from=Player
 dependency2.to=Display
+=======
+dependency10.from=Server
+dependency10.to=Card
+dependency10.type=UsesDependency
+dependency11.from=Server
+dependency11.to=Player
+dependency11.type=UsesDependency
+dependency2.from=Game
+dependency2.to=Card
+>>>>>>> Merger
 dependency2.type=UsesDependency
 dependency3.from=Game
 dependency3.to=Card
@@ -23,16 +34,25 @@ dependency6.type=UsesDependency
 dependency7.from=Display
 dependency7.to=Player
 dependency7.type=UsesDependency
+<<<<<<< HEAD
 dependency8.from=Display
 dependency8.to=Hand
 dependency8.type=UsesDependency
 dependency9.from=Game
 dependency9.to=Hand
+=======
+dependency8.from=RemotePlayer
+dependency8.to=Card
+dependency8.type=UsesDependency
+dependency9.from=Server
+dependency9.to=Game
+>>>>>>> Merger
 dependency9.type=UsesDependency
 objectbench.height=76
 objectbench.width=938
-package.editor.height=914
+package.editor.height=853
 package.editor.width=840
+<<<<<<< HEAD
 package.editor.x=289
 package.editor.y=222
 package.numDependencies=10
@@ -44,6 +64,19 @@ target1.editor.height=700
 target1.editor.width=900
 target1.editor.x=730
 target1.editor.y=162
+=======
+package.editor.x=953
+package.editor.y=61
+package.numDependencies=11
+package.numTargets=6
+package.showExtends=true
+package.showUses=true
+project.charset=windows-1252
+target1.editor.height=1080
+target1.editor.width=960
+target1.editor.x=817
+target1.editor.y=8
+>>>>>>> Merger
 target1.height=50
 target1.name=Player
 target1.naviview.expanded=true
@@ -51,12 +84,21 @@ target1.showInterface=false
 target1.type=ClassTarget
 target1.typeParameters=
 target1.width=80
+<<<<<<< HEAD
 target1.x=410
 target1.y=70
 target2.editor.height=700
 target2.editor.width=900
 target2.editor.x=0
 target2.editor.y=0
+=======
+target1.x=60
+target1.y=550
+target2.editor.height=517
+target2.editor.width=974
+target2.editor.x=953
+target2.editor.y=570
+>>>>>>> Merger
 target2.height=50
 target2.name=Game
 target2.naviview.expanded=true
@@ -64,18 +106,28 @@ target2.showInterface=false
 target2.type=ClassTarget
 target2.typeParameters=
 target2.width=80
+<<<<<<< HEAD
 target2.x=120
 target2.y=510
+=======
+target2.x=300
+target2.y=400
+>>>>>>> Merger
 target3.editor.height=1087
 target3.editor.width=974
 target3.editor.x=-7
 target3.editor.y=0
 target3.height=50
+<<<<<<< HEAD
 target3.name=Hand
+=======
+target3.name=RemotePlayer
+>>>>>>> Merger
 target3.naviview.expanded=true
 target3.showInterface=false
 target3.type=ClassTarget
 target3.typeParameters=
+<<<<<<< HEAD
 target3.width=80
 target3.x=70
 target3.y=70
@@ -85,10 +137,23 @@ target4.editor.x=0
 target4.editor.y=0
 target4.height=50
 target4.name=Card
+=======
+target3.width=100
+target3.x=280
+target3.y=640
+target4.editor.height=700
+target4.editor.width=900
+target4.editor.x=-16
+target4.editor.y=130
+target4.height=50
+target4.name=Server
+target4.naviview.expanded=true
+>>>>>>> Merger
 target4.showInterface=false
 target4.type=ClassTarget
 target4.typeParameters=
 target4.width=80
+<<<<<<< HEAD
 target4.x=300
 target4.y=350
 target5.editor.height=1087
@@ -97,10 +162,38 @@ target5.editor.x=0
 target5.editor.y=0
 target5.height=50
 target5.name=Display
+=======
+target4.x=230
+target4.y=310
+target5.editor.height=700
+target5.editor.width=900
+target5.editor.x=927
+target5.editor.y=190
+target5.height=50
+target5.name=Card
+>>>>>>> Merger
 target5.naviview.expanded=true
 target5.showInterface=false
 target5.type=ClassTarget
 target5.typeParameters=
 target5.width=80
+<<<<<<< HEAD
 target5.x=10
 target5.y=130
+=======
+target5.x=420
+target5.y=640
+target6.editor.height=652
+target6.editor.width=900
+target6.editor.x=83
+target6.editor.y=174
+target6.height=50
+target6.name=Display
+target6.naviview.expanded=true
+target6.showInterface=false
+target6.type=ClassTarget
+target6.typeParameters=
+target6.width=80
+target6.x=60
+target6.y=390
+>>>>>>> Merger
