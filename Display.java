@@ -180,6 +180,7 @@ public class Display extends JFrame implements MouseListener
 
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static BufferedImage scaleImage(BufferedImage image, int imageType,
         int newWidth, int newHeight) {
         // Make sure the aspect ratio is maintained, so the image is not distorted
@@ -236,6 +237,8 @@ public class Display extends JFrame implements MouseListener
 
         return newImage;
   	}
+=======
+>>>>>>> parent of 1442e43... Progress in front-end and pocket display.
 =======
 >>>>>>> parent of 1442e43... Progress in front-end and pocket display.
     public String getInput()
