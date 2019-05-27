@@ -124,10 +124,7 @@ public class Card
      */
     public String getFileName()
     {
-        if(!isFaceUp)
-        {
-            return "cards\\backapcsds.gif";
-        }
+
         String temp;
         String r = String.valueOf(rank);
         if(r.equals("1"))
