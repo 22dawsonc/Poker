@@ -70,6 +70,12 @@ public class RemotePlayer extends Player
         System.out.println(getName()+"'s move'"+getCards());
 //        String s = sc.next();
         String s = d.getInput();
+        while(s.equals("")) 
+        {
+        	try {Thread.sleep(100);}
+        	catch(InterruptedException ie) {ie.printStackTrace();}
+        	s = d.getInput();
+        }
         sendString(getName()+":"+s);
     }
 
