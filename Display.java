@@ -17,7 +17,7 @@ import java.lang.System;
  * @version 11.2.18
  * 
  */
-public class Display extends JFrame
+public class Display extends JFrame implements MouseListener
 {
     private JFrame frame;
     private RemotePlayer player;
@@ -104,6 +104,7 @@ public class Display extends JFrame
         BufferedImage myPicture1 = null;
 		try {
 			myPicture1 = ImageIO.read(new File(a.get(1).getFileName()));
+			myPicture1 = Display.scaleImage(myPicture1, BufferedImage.TYPE_INT_RGB, myPicture1.getWidth()*2, myPicture1.getHeight()*2);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -114,9 +115,11 @@ public class Display extends JFrame
         int h = (int)(picLabel1.getPreferredSize().getHeight());
         int w1 =(int)(frame.getBounds().getWidth()/2) ;
         int h1 = (int)(frame.getBounds().getHeight()*0.69);
+        w1 = 420;
+        h1 = 450;
         System.out.println("" + w1 + " " + h1 + " " + (w1+w) + " " + (h1+h));
         picLabel1.setBounds(w1,h1,w1+w ,h1+h );
-        //picLabel.setBounds((int)(frame.getPreferredSize().getWidth()/2),(int)(frame.getPreferredSize().getHeight()*.75), (int)(picLabel.getPreferredSize().getWidth()), (int)(picLabel.getPreferredSize().getHeight()));
+        picLabel.setBounds(w1+20,h1, w1+w+20, h1+h);
         p.add(picLabel);
         p.add(picLabel1);
         
@@ -125,9 +128,7 @@ public class Display extends JFrame
         frame.add(p);
         frame.add(bar, BorderLayout.SOUTH);
         frame.setVisible(true);
-
     }
-<<<<<<< HEAD
     public static BufferedImage scaleImage(BufferedImage image, int imageType,
         int newWidth, int newHeight) {
         // Make sure the aspect ratio is maintained, so the image is not distorted
@@ -152,12 +153,43 @@ public class Display extends JFrame
 
         return newImage;
   	}
-=======
->>>>>>> parent of 1442e43... Progress in front-end and pocket display.
     public String getInput()
     {
     	String temp = input;
     	input = "";
     	return temp;
     }
+    public void paintComponent(Graphics g) {
+    	
+    }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
