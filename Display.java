@@ -104,7 +104,6 @@ public class Display extends JFrame implements MouseListener
         BufferedImage myPicture1 = null;
 		try {
 			myPicture1 = ImageIO.read(new File(a.get(1).getFileName()));
-			myPicture1 = Display.scaleImage(myPicture1, BufferedImage.TYPE_INT_RGB, myPicture1.getWidth()*2, myPicture1.getHeight()*2);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -115,11 +114,9 @@ public class Display extends JFrame implements MouseListener
         int h = (int)(picLabel1.getPreferredSize().getHeight());
         int w1 =(int)(frame.getBounds().getWidth()/2) ;
         int h1 = (int)(frame.getBounds().getHeight()*0.69);
-        w1 = 420;
-        h1 = 450;
         System.out.println("" + w1 + " " + h1 + " " + (w1+w) + " " + (h1+h));
         picLabel1.setBounds(w1,h1,w1+w ,h1+h );
-        picLabel.setBounds(w1+20,h1, w1+w+20, h1+h);
+        //picLabel.setBounds((int)(frame.getPreferredSize().getWidth()/2),(int)(frame.getPreferredSize().getHeight()*.75), (int)(picLabel.getPreferredSize().getWidth()), (int)(picLabel.getPreferredSize().getHeight()));
         p.add(picLabel);
         p.add(picLabel1);
         
@@ -129,30 +126,6 @@ public class Display extends JFrame implements MouseListener
         frame.add(bar, BorderLayout.SOUTH);
         frame.setVisible(true);
     }
-    public static BufferedImage scaleImage(BufferedImage image, int imageType,
-        int newWidth, int newHeight) {
-        // Make sure the aspect ratio is maintained, so the image is not distorted
-        double thumbRatio = (double) newWidth / (double) newHeight;
-        int imageWidth = image.getWidth(null);
-        int imageHeight = image.getHeight(null);
-        double aspectRatio = (double) imageWidth / (double) imageHeight;
-
-        if (thumbRatio < aspectRatio) {
-            newHeight = (int) (newWidth / aspectRatio);
-        } else {
-            newWidth = (int) (newHeight * aspectRatio);
-        }
-
-        // Draw the scaled image
-        BufferedImage newImage = new BufferedImage(newWidth, newHeight,
-                imageType);
-        Graphics2D graphics2D = newImage.createGraphics();
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        graphics2D.drawImage(image, 0, 0, newWidth, newHeight, null);
-
-        return newImage;
-  	}
     public String getInput()
     {
     	String temp = input;
