@@ -65,7 +65,9 @@ public class RemotePlayer extends Player
 
     public void getInput()
     {
+//    	Scanner sc = new Scanner(System.in);
         System.out.println(getName()+"'s move'"+getCards());
+//        String s = sc.next();
         String s = d.getInput();
         while(s.equals("")) 
         {
@@ -115,11 +117,8 @@ public class RemotePlayer extends Player
             for(String l: a)
                 cards.add(Card.reconstructCard(l));
             communityCards.addAll(cards);
-            for(Card c: communityCards) {
-            	System.out.println(c.toString());
-            	//show in display
-            }
-                
+            for(Card c: communityCards)
+                System.out.println(c.toString());
         }
         /*
          * does nothing if it is not addressed

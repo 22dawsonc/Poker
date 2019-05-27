@@ -55,9 +55,7 @@ public class Display extends JFrame implements MouseListener
 
         frame = new JFrame("Poker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setPreferredSize(screenSize);
-        frame.setSize(screenSize);
+        frame.setSize(new Dimension(2000,2000));
         c = new JButton("Check/Call");
         c.addActionListener(new ActionListener() {
 			@Override
@@ -109,14 +107,16 @@ public class Display extends JFrame implements MouseListener
 			e1.printStackTrace();
 		}
         JLabel picLabel1 = new JLabel(new ImageIcon(myPicture1));
-        p.setLayout(null);
-        int w = (int)(picLabel1.getPreferredSize().getWidth());
-        int h = (int)(picLabel1.getPreferredSize().getHeight());
-        int w1 =(int)(frame.getBounds().getWidth()/2) ;
-        int h1 = (int)(frame.getBounds().getHeight()*0.69);
-        System.out.println("" + w1 + " " + h1 + " " + (w1+w) + " " + (h1+h));
-        picLabel1.setBounds(w1,h1,w1+w ,h1+h );
-        //picLabel.setBounds((int)(frame.getPreferredSize().getWidth()/2),(int)(frame.getPreferredSize().getHeight()*.75), (int)(picLabel.getPreferredSize().getWidth()), (int)(picLabel.getPreferredSize().getHeight()));
+        
+        
+        GridBagConstraints c = new GridBagConstraints();
+                
+        c.gridx = 1;
+        c.gridy = 1;
+        
+        picLabel.setBounds(25,25,125,125);
+        picLabel1.setBounds(125,125,225,225);
+        
         p.add(picLabel);
         p.add(picLabel1);
         
