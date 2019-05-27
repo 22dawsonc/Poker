@@ -14,6 +14,7 @@ public class RemotePlayer extends Player
     private MulticastSocket socket; 
     private InetAddress group; 
     private int port; 
+    private Display d;
     private static final int MAX_LEN = 1000; 
     public static void main(String[] args)
     {
@@ -24,6 +25,7 @@ public class RemotePlayer extends Player
     public RemotePlayer(int cash, String n)
     {
         super(cash, n);
+        d = new Display(this);
         communityCards = new ArrayList<Card>();
         String[] args = new String[2];
         args[0] = "239.0.0.0";
@@ -64,9 +66,10 @@ public class RemotePlayer extends Player
 
     public void getInput()
     {
-    	Scanner sc = new Scanner(System.in);
+//    	Scanner sc = new Scanner(System.in);
         System.out.println(getName()+"'s move'"+getCards());
-        String s = sc.next();
+//        String s = sc.next();
+        String s = d.getInput();
         sendString(getName()+":"+s);
     }
 

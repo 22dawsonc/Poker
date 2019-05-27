@@ -1,41 +1,42 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.lang.System;
 
 /**
  * 
  * A display for the solitaire class and for playing solitaire
- * @authour Harsh Deep
- * @authour Dawson Chen
+ * @author Harsh Deep
+ * @author Dawson Chen
  * @version 11.2.18
  * 
  */
-public class Display extends JComponent implements KeyListener
+public class Display extends JFrame implements MouseListener
 {
-    private String s;
-    private static final int CARD_WIDTH = 73;
-    private static final int CARD_HEIGHT = 97;
-    private static final int SPACING = 5;  //distance between cards
-    private static final int FACE_UP_OFFSET = 15;  //distance for cascading face-up cards
-    private static final int FACE_DOWN_OFFSET = 5;  //distance for cascading face-down cards
-    private int moves;
     private JFrame frame;
-    private int selectedRow = -1;
-    private int selectedCol = -1;
-    private long start;
-    private RemotePlayer p;
-
+    private RemotePlayer player;
+    private JPanel bar;
+    private JPanel p;
+    private JButton c;
+    private JButton f;
+    private JButton r;
+    private JLabel pot;
+    private String input;
+    
+    public static void main(String[] args) {new Display(null);}
     /**
      * Constructor for the Display
      * @param game An instance of a solitaire match
      * 
      */
-    public Display(RemotePlayer p)
+    public Display(RemotePlayer plr)
     {
-    	this.p = p;
+    	player = plr;
         Runnable runnable = new Runnable() {    
                 public void run() {  
                     while (true) {      
@@ -49,114 +50,117 @@ public class Display extends JComponent implements KeyListener
                 }    
             };
         new Thread(runnable).start();
-        start = System.nanoTime();
 
         frame = new JFrame("Poker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(this);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        frame.setUndecorated(false); 
-        this.setPreferredSize(new Dimension(400,500));
-        frame.setSize(2000,2000);
-        frame.addKeyListener(this);
-        frame.pack();
+        frame.setSize(new Dimension(2000,2000));
+        c = new JButton("Check/Call");
+        c.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				input = "c";
+			}
+        });
+        f = new JButton("Fold");
+        f.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				input = "f";
+			}
+        });
+        r = new JButton("Raise $10");
+        r.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				input = "r10";
+			}
+        });
+        pot = new JLabel("Pot: $10");
+        bar = new JPanel();
+        bar.setBackground(new Color(0,100,0));
+        bar.add(c);
+        bar.add(f);
+        bar.add(r);
+        bar.add(pot); 
+        p = new JPanel(new GridBagLayout());
+        p.setBackground(new Color(0,80,0));
+        
+        BufferedImage myPicture = null;
+		try {
+			myPicture = ImageIO.read(new File(".//Cards//2c.gif"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        
+        BufferedImage myPicture1 = null;
+		try {
+			myPicture1 = ImageIO.read(new File(".//Cards//2s.gif"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        JLabel picLabel1 = new JLabel(new ImageIcon(myPicture1));
+        
+        
+        GridBagConstraints c = new GridBagConstraints();
+                
+        c.gridx = 1;
+        c.gridy = 1;
+        
+        picLabel.setBounds(25,25,125,125);
+        picLabel1.setBounds(125,125,225,225);
+        
+        p.add(picLabel);
+        p.add(picLabel1);
+        
+      
+        //stuff in the big Panel
+        frame.add(p);
+        frame.add(bar, BorderLayout.SOUTH);
         frame.setVisible(true);
     }
-
-    /**
-     * Paints the field
-     * 
-     * @param g graphics to paint on
-     * 
-     */
-    public void paintComponent(Graphics g)
-    {
-         /*
-          * To be done by graphics person
-          */
-         //background
-         //rgb(17, 175, 41)
-         g.setColor(Color.GRAY);
-         g.fillRect(0, 0, getWidth(), getHeight());
-         g.setColor(new Color(0,0,0));
-         g.fillOval(25, 25, (int)(frame.size().getWidth() - 50), (int)(frame.size().getHeight()-50));
- 
-         g.setColor(new Color(17, 175, 41));
-         g.fillOval(100, 100, (int)(frame.size().getWidth() - 200), (int)(frame.size().getHeight()-200));
-         Card c = new Card(10, "h");
-         c.turnUp();
-         
- 
-         for(int i = 0;i<a.length;i++)
-         {
-             Hand h = a[i].getHand();
-             for(int j = 0;j<2;j++)
-             {
-                 h.getPocket()[j].turnUp();
-                 this.drawCard(g, h.getPocket()[j], (int)(frame.size().getWidth()/2 - 10)+ (10*j), (int)(frame.size().getHeight() - 200) - 700*i);
-             }
-         }
-
-    }
-    /**
-     * Gets the input
-     * 
-     */
     public String getInput()
     {
-        String t = s;
-        s = null;
-        return t;
-    }   
-
-    /**
-     * Draws Cards
-     * @param g the graphics to draw on
-     * @param card the card to be drawn
-     * @param x the x-coords of the upper left corner
-     * @param y the y-coords of the upper left corner
-     * 
-     */
-    private void drawCard(Graphics g, Card card, int x, int y)
-    {
-        if (card == null)
-        {
-            g.setColor(Color.BLACK);
-            g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
-        }
-        else
-        {
-            String fileName = card.getFileName();
-            if (!new File(fileName).exists())
-                throw new IllegalArgumentException("bad file name:  " + fileName);
-            Image image = new ImageIcon(fileName).getImage();
-            g.drawImage(image, x, y, CARD_WIDTH, CARD_HEIGHT, null);
-        }
+    	String temp = input;
+    	input = "";
+    	return temp;
     }
-
-    public void keyTyped(KeyEvent e) {
-        keyPressed(e);
+    public void paintComponent(Graphics g) {
+    	
     }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    /** Handle the key-pressed event from the text field. */
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_F) {
-            s+="f";
-        }
-        if (key == KeyEvent.VK_C) {
-            s+="c";
-        }
-        if(key == KeyEvent.VK_R)
-        {
-            s+="r";
-        }
-        if(s.contains("r")&& (key <=0x39 && key>=0x30))
-            s+=key;
-    }
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    /** Handle the key-released event from the text field. */
-    public void keyReleased(KeyEvent e) {
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    }
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
