@@ -1,8 +1,9 @@
 import java.awt.*;
+
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.*;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -88,10 +89,10 @@ public class Display extends JFrame implements MouseListener
         bar.add(pot); 
         p = new JPanel(new GridBagLayout());
         p.setBackground(new Color(0,80,0));
-        
         BufferedImage myPicture = null;
+        List<Card> a = player.getCards();
 		try {
-			myPicture = ImageIO.read(new File(".//Cards//2c.gif"));
+			myPicture = ImageIO.read(new File(a.get(0).getFileName()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -100,7 +101,7 @@ public class Display extends JFrame implements MouseListener
         
         BufferedImage myPicture1 = null;
 		try {
-			myPicture1 = ImageIO.read(new File(".//Cards//2s.gif"));
+			myPicture1 = ImageIO.read(new File(a.get(1).getFileName()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
