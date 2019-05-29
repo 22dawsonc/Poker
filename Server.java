@@ -31,6 +31,7 @@ public class Server
     private int blind;
     private ArrayList<Card> c1;
     private ArrayList<Card> c2;
+    private int typeWin;
     public static void main(String[] args)
     {
         Server server = new Server();
@@ -48,6 +49,7 @@ public class Server
      */
     public Server()
     {
+    	typeWin = 0;
     	blind = 1;
     	c1 = new ArrayList<Card>();
     	c2 = new ArrayList<Card>();
@@ -290,14 +292,7 @@ public class Server
         	return;
         }
         String win = getWinner();
-        if(win.equals(p1)) 
-        {
-        	System.out.println(p1+" wins");
-        }
-        else 
-        {
-        	System.out.println(p2+" wins");
-        }
+        sendString("Server: "+win+"|"+winTypes[typeWin]);
     }
     /**
      * 0 means no one folded
@@ -487,8 +482,11 @@ public class Server
             int score2 = eval(a);
        if(score1>score2) 
        {
+    	   typeWin = score1>>12;
     	   return p1;
        }
+       typeWin = score2 >> 12;
+       
         return p2;
     }
 

@@ -19,8 +19,8 @@ import java.lang.System;
  */
 public class Display extends JComponent
 {
-    private static final int CARD_WIDTH = 73*2;
-	private static final int CARD_HEIGHT = 97*2;
+    private static final int CARD_WIDTH = 73;
+	private static final int CARD_HEIGHT = 97;
 	private JFrame frame;
     private RemotePlayer player;
     private JPanel bar;
@@ -58,7 +58,7 @@ public class Display extends JComponent
 
         frame = new JFrame(player.getName());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension screenSize = new Dimension(1700, 1000);
+        Dimension screenSize = new Dimension(1000, 500);
         frame.setPreferredSize(screenSize);
         frame.setSize(screenSize);
         frame.setResizable(false);
@@ -67,7 +67,8 @@ public class Display extends JComponent
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				input = "c";
+				if(player.isTurn)
+					input = "c";
 			}
         });
         f = new JButton("Fold");
@@ -75,6 +76,7 @@ public class Display extends JComponent
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(player.isTurn)
 				input = "f";
 			}
         });
@@ -85,7 +87,9 @@ public class Display extends JComponent
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(player.isTurn)
 				input = "r"+t.getText();
+				
 			}
         });
         frame.getContentPane().add(this);
@@ -103,7 +107,7 @@ public class Display extends JComponent
         List<Card> a = player.getCards();
 		try {
 			myPicture = ImageIO.read(new File(a.get(0).getFileName()));
-			myPicture = Display.scaleImage(myPicture, BufferedImage.TYPE_INT_RGB, (int)(myPicture.getWidth()*1.5),(int)( myPicture.getHeight()*1.5));
+			myPicture = Display.scaleImage(myPicture, BufferedImage.TYPE_INT_RGB, (int)(myPicture.getWidth()*0.75),(int)( myPicture.getHeight()*0.75));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -113,7 +117,7 @@ public class Display extends JComponent
         BufferedImage myPicture1 = null;
 		try {
 			myPicture1 = ImageIO.read(new File(a.get(1).getFileName()));
-			myPicture1 = Display.scaleImage(myPicture1, BufferedImage.TYPE_INT_RGB, (int)(myPicture1.getWidth()*1.5),(int)( myPicture1.getHeight()*1.5));
+			myPicture1 = Display.scaleImage(myPicture1, BufferedImage.TYPE_INT_RGB, (int)(myPicture1.getWidth()*0.75),(int)( myPicture1.getHeight()*0.75));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -123,8 +127,8 @@ public class Display extends JComponent
         frame.pack();
         int w = (int)(picLabel1.getPreferredSize().getWidth());
         int h = (int)(picLabel1.getPreferredSize().getHeight());
-        int w1 =(int)(830 - w) ;
-        int h1 = (int)(700);
+        int w1 =(int)(470 - w) ;
+        int h1 = (int)(350);
         System.out.println("" + w1 + " " + h1 + " " + (w1+w) + " " + (h1+h));
         picLabel1.setBounds(w1,h1, w ,h );
         picLabel.setBounds(w1+w,h1, w+w, h);
@@ -167,7 +171,18 @@ public class Display extends JComponent
     	input = "";
     	return temp;
     }
-
+    public void showWinner(Graphics g) 
+    {
+    	if(player.winner.contains(player.getName())) 
+    	{
+    		String s = player.winner;
+    		String m = s.substring(s.indexOf("|")+1);
+    		g.setFont(new Font("TimesRoman", Font.BOLD, 60));
+    		g.setColor(Color.RED);
+    		g.drawString("You Win With: "+m, 200, 100);
+    	}
+    	
+    }
 	private void drawCard(Graphics g, Card card, int x, int y) {
 		if (card == null) {
 			String fileName = ".//cards//imgCards.png";
@@ -187,15 +202,25 @@ public class Display extends JComponent
     		List<Card> c = player.getCommunityCards();
     		//System.out.println("drawing cards");
 
-        	int dist = (int)(820 - 109*2.5);
+        	int dist = (int)(470 - 55*2.5);
         	for(int i = c.size();i<5;i++)
         		c.add(null);
         	
         	for(int i = 0;i<5;i++) 
         	{
-        		drawCard(g, c.get(i), dist+190*i, 350);
+        		drawCard(g, c.get(i), dist+55*i, 150);
         	}	
     	}
+    	showWinner(g);
+    	if(player.isTurn) 
+    	{
+    		g.setColor(Color.WHITE);
+    		g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
+    		g.drawString("It is your turn!", 320, 302);
+    	}
+    	g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+    	g.setColor(Color.BLACK);
+    	g.drawString("Money: "+player.getCash(),100,200);
     	pot.setText("Pot: "+player.getPot());
     }
 }

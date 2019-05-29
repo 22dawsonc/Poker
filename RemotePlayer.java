@@ -10,13 +10,16 @@ import java.util.*;
  */
 public class RemotePlayer extends Player
 {
+	public String winner;
+	public boolean isTurn;
     private List<Card> communityCards;
     private MulticastSocket socket; 
     private InetAddress group; 
     private int port; 
     private Display d;
     private int pot;
-    private static final int MAX_LEN = 1000; 
+    private static final int MAX_LEN = 1000;
+    
     public static void main(String[] args)
     {
         RemotePlayer r = new RemotePlayer(1000, "a");
@@ -26,6 +29,7 @@ public class RemotePlayer extends Player
     public RemotePlayer(int cash, String n)
     {
         super(cash, n);
+        winner = "";
         communityCards = new ArrayList<Card>();
         String[] args = new String[2];
         args[0] = "239.0.0.0";
@@ -99,13 +103,16 @@ public class RemotePlayer extends Player
                 
             }else if(m.contains("?"))// ?<pot><amt to call> is the keyword that will be used to indicate and request to input
             {
+            	
                 String s = m.substring(m.indexOf("?")+1);
                 int pot = Integer.valueOf(s.substring(1, s.indexOf(">")));
                 s = s.substring(s.indexOf(">")+1);
                 int amt = Integer.valueOf(s.substring(1, s.indexOf(">")));
                 this.pot = pot;
                 System.out.println("Your turn! Pot "+pot+" amount to call "+amt);
+                isTurn = true;
                 getInput();
+                isTurn = false;
             }
             else
             {
@@ -115,16 +122,31 @@ public class RemotePlayer extends Player
         else if(m.contains("Server:"))//addressing all players on multicast(ie the flop, turn and river cards)
         {
             String s = m.substring(m.indexOf(":")+2);
+            if(s.contains("]")) 
+            {
             List<String> a = parseList(s);
             List<Card> cards = new ArrayList<Card>();
             for(String l: a)
                 cards.add(Card.reconstructCard(l));
             communityCards.addAll(cards);
-            for(Card c: communityCards) {
-            	System.out.println(c.toString());
+            for(int i = communityCards.size()-1;i>=0;i--) 
+            	if(communityCards.get(i)==null)
+            		communityCards.remove(i);  
             }
-                
+            else 
+            {
+            	winner = s;
+            }
+        }	
+        else if(m.contains("ServerTo")&&m.contains("?")) 
+        {
+        	String s = m.substring(m.indexOf("?")+1);
+            int pot = Integer.valueOf(s.substring(1, s.indexOf(">")));
+            s = s.substring(s.indexOf(">")+1);
+            this.pot = pot;
         }
+        	
+        	
         /*
          * does nothing if it is not addressed
          */
