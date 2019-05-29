@@ -18,6 +18,7 @@ public class RemotePlayer extends Player
     private int port; 
     private Display d;
     private int pot;
+    public int amtToCall;
     private static final int MAX_LEN = 1000;
     
     public static void main(String[] args)
@@ -108,6 +109,7 @@ public class RemotePlayer extends Player
                 int pot = Integer.valueOf(s.substring(1, s.indexOf(">")));
                 s = s.substring(s.indexOf(">")+1);
                 int amt = Integer.valueOf(s.substring(1, s.indexOf(">")));
+                amtToCall = amt;
                 this.pot = pot;
                 System.out.println("Your turn! Pot "+pot+" amount to call "+amt);
                 isTurn = true;

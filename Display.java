@@ -67,8 +67,11 @@ public class Display extends JComponent
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(player.isTurn)
+				if(player.isTurn) 
+				{
+					player.setCash(player.getCash()-player.amtToCall);
 					input = "c";
+				}
 			}
         });
         f = new JButton("Fold");
@@ -87,8 +90,13 @@ public class Display extends JComponent
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(player.isTurn)
-				input = "r"+t.getText();
+				if(player.isTurn) 
+				{
+					player.setCash(player.getCash()-player.amtToCall);
+					int i = Integer.valueOf(t.getText());
+					player.setCash(player.getCash()-i);
+					input = "r"+t.getText();
+				}
 				
 			}
         });
@@ -177,9 +185,13 @@ public class Display extends JComponent
     	{
     		String s = player.winner;
     		String m = s.substring(s.indexOf("|")+1);
+    		String l = m.substring(0,m.indexOf("|"));
+    		m = m.substring(m.indexOf("|")+1);
+    		
+    		
     		g.setFont(new Font("TimesRoman", Font.BOLD, 60));
     		g.setColor(Color.RED);
-    		g.drawString("You Win With: "+m, 200, 100);
+    		g.drawString("You Win "+m+" With: "+l, 200, 100);
     	}
     	
     }
@@ -220,7 +232,7 @@ public class Display extends JComponent
     	}
     	g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
     	g.setColor(Color.BLACK);
-    	g.drawString("Money: "+player.getCash(),100,200);
-    	pot.setText("Pot: "+player.getPot());
+    	g.drawString("Pot: "+player.getPot(),100,200);
+    	pot.setText("Money: "+player.getCash());
     }
 }

@@ -249,12 +249,12 @@ public class Server
         int result = bettingRound();
         if(result == 1) 
         {
-        	System.out.println("1 wins. POT: "+pot);
+        	sendString("Server: "+p1+"|fold|"+pot);
         	return;
         }
         else if(result == 2) 
         {
-        	System.out.println("2 wins. POT: "+pot);
+        	sendString("Server: "+p2+"|"+"fold|"+pot);
         	return;
         }
         c = new ArrayList<Card>();
@@ -265,12 +265,12 @@ public class Server
         result = bettingRound();
         if(result == 1) 
         {
-        	System.out.println("1 wins. POT: "+pot);
+        	sendString("Server: "+p1+"|fold|"+pot);
         	return;
         }
         else if(result == 2) 
         {
-        	System.out.println("2 wins. POT: "+pot);
+        	sendString("Server: "+p2+"|"+"fold|"+pot);
         	return;
         }
         
@@ -283,16 +283,16 @@ public class Server
         result = bettingRound();
         if(result == 1) 
         {
-        	System.out.println("1 wins. POT: "+pot);
+        	sendString("Server: "+p1+"|fold|"+pot);
         	return;
         }
         else if(result == 2) 
         {
-        	System.out.println("2 wins. POT: "+pot);
+        	sendString("Server: "+p2+"|"+"fold|"+pot);
         	return;
         }
         String win = getWinner();
-        sendString("Server: "+win+"|"+winTypes[typeWin]);
+        sendString("Server: "+win+"|"+winTypes[typeWin]+"|"+pot);
     }
     /**
      * 0 means no one folded
