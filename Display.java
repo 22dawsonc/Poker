@@ -30,7 +30,9 @@ public class Display extends JComponent
     private JButton r;
     private JTextField t;
     private JLabel pot;
+    private JLabel err;
     private String input;
+    private boolean raise;
     
     public static void main(String[] args) {new Display(null);}
     /**
@@ -40,6 +42,7 @@ public class Display extends JComponent
      */
     public Display(RemotePlayer plr)
     {
+    	raise = false;
     	input = "";
     	player = plr;
         Runnable runnable = new Runnable() {    
@@ -85,17 +88,25 @@ public class Display extends JComponent
         });
         r = new JButton("Raise: ");
         t = new JTextField(5);
-        
+        err = new JLabel("");
         r.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(player.isTurn) 
 				{
+					raise = true;
 					player.setCash(player.getCash()-player.amtToCall);
+					try {
 					int i = Integer.valueOf(t.getText());
 					player.setCash(player.getCash()-i);
 					input = "r"+t.getText();
+					err.setText("");
+					}catch(NumberFormatException nfe) 
+					{
+						err.setText("Invalid Input");
+						player.setCash(player.getCash()+player.amtToCall);
+					}
 				}
 				
 			}
@@ -109,7 +120,9 @@ public class Display extends JComponent
         bar.add(r);
         bar.add(t);
         bar.add(pot); 
+        bar.add(err);
         p = new JPanel(new GridBagLayout());
+        
         p.setBackground(new Color(0,80,0));
         BufferedImage myPicture = null;
         List<Card> a = player.getCards();
@@ -189,9 +202,9 @@ public class Display extends JComponent
     		m = m.substring(m.indexOf("|")+1);
     		
     		
-    		g.setFont(new Font("TimesRoman", Font.BOLD, 60));
+    		g.setFont(new Font("TimesRoman", Font.BOLD, 30));
     		g.setColor(Color.RED);
-    		g.drawString("You Win "+m+" With: "+l, 200, 100);
+    		g.drawString("You Win $"+m+" With: "+l, 200, 100);
     	}
     	
     }
@@ -228,7 +241,7 @@ public class Display extends JComponent
     	{
     		g.setColor(Color.WHITE);
     		g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-    		g.drawString("It is your turn!", 320, 302);
+    		g.drawString("It's your turn!", 400, 302);
     	}
     	g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
     	g.setColor(Color.BLACK);

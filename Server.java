@@ -12,7 +12,6 @@ public class Server
 {
     // instance variables - replace the example below with your own
 	public String in;
-    private Game g;
     private int ct;
     private MulticastSocket socket; 
     private InetAddress group; 
@@ -20,11 +19,9 @@ public class Server
     private static final int HAND_RANK_SIZE = 32487834;
     private List<Card> communityCards;
     private int pot;
-    private int call;
     private int[] evalTable;
     private static final int BIG_BLIND = 10;
     private List<Card> deck;
-    private List<Player> p;
     private String[] winTypes;
     private String p1;
     private String p2;
@@ -53,7 +50,6 @@ public class Server
     	blind = 1;
     	c1 = new ArrayList<Card>();
     	c2 = new ArrayList<Card>();
-        g = new Game();
         p1 = "a";
         p2 = "b";
         String[] args = new String[2];
@@ -87,11 +83,9 @@ public class Server
                 "FOUR_OF_A_KIND",
                 "STRAIGHT_FLUSH"
             };
-        call = 0;
         winTypes = a;
         evalTable = loadHandRankResource("HandRanks.dat");
         communityCards = new ArrayList<Card>();
-        p = new ArrayList<Player>();
         deck = new ArrayList<Card>();
         String[] suits = {"d", "c", "s", "h"};
         int ct = 0;
@@ -270,7 +264,7 @@ public class Server
         }
         else if(result == 2) 
         {
-        	sendString("Server: "+p2+"|"+"fold|"+pot);
+        	sendString("Server: "+p2+"|fold|"+pot);
         	return;
         }
         
@@ -345,6 +339,7 @@ public class Server
     		{
     			sendString("ServerTo"+p1+": ?<"+pot+"><"+(cont2-cont1)+">");
     			String s = awaitResponse();
+    			System.out.println("DEBUG: "+s);
     			s = s.substring(s.indexOf(":")+1);
     			if(s.equals("f"))
         		{
@@ -369,6 +364,7 @@ public class Server
     		{
     			sendString("ServerTo"+p2+": ?<"+pot+"><"+(cont1-cont2)+">");
     			String s = awaitResponse();
+    			System.out.println("DEBUG: "+s);
     			s = s.substring(s.indexOf(":")+1);
     			if(s.equals("f"))
         		{
@@ -397,8 +393,15 @@ public class Server
     }
     public String awaitResponse() 
     {
+    	try 
+    	{
+    		Thread.sleep(100);
+    	}catch(InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
     	in = "";
-    	while(in.equals("")) 
+    	while(in!=null&&in.equals("")) 
     	{
     		try {Thread.sleep(100);}
     		catch(InterruptedException e) 
@@ -406,6 +409,7 @@ public class Server
     			e.printStackTrace();
     		}
     	}
+    	System.out.println("Recieved: "+in);
     	return in;
     }
 
@@ -541,7 +545,7 @@ public class Server
             this.socket = socket; 
             this.group = group; 
             this.port = port; 
-            System.out.println("read thread created");
+            System.out.println("Server Started");
         } 
 
         @Override

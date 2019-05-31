@@ -23,7 +23,7 @@ public class RemotePlayer extends Player
     
     public static void main(String[] args)
     {
-        RemotePlayer r = new RemotePlayer(1000, "a");
+        RemotePlayer r = new RemotePlayer(990, "a");
 
     }
 
@@ -109,12 +109,19 @@ public class RemotePlayer extends Player
                 int pot = Integer.valueOf(s.substring(1, s.indexOf(">")));
                 s = s.substring(s.indexOf(">")+1);
                 int amt = Integer.valueOf(s.substring(1, s.indexOf(">")));
+                if(amt>=0) {
                 amtToCall = amt;
                 this.pot = pot;
                 System.out.println("Your turn! Pot "+pot+" amount to call "+amt);
                 isTurn = true;
                 getInput();
                 isTurn = false;
+                }
+                else 
+                {
+                	System.err.println(amt);
+                	sendString(getName()+":c");
+                }
             }
             else
             {
