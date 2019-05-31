@@ -33,6 +33,7 @@ public class Display extends JComponent
     private JLabel err;
     private String input;
     private boolean raise;
+    private boolean first; 
     
     public static void main(String[] args) {new Display(null);}
     /**
@@ -42,6 +43,7 @@ public class Display extends JComponent
      */
     public Display(RemotePlayer plr)
     {
+    	first = true;
     	raise = false;
     	input = "";
     	player = plr;
@@ -99,6 +101,9 @@ public class Display extends JComponent
 					player.setCash(player.getCash()-player.amtToCall);
 					try {
 					int i = Integer.valueOf(t.getText());
+					if(i>player.getCash()||i<=0)
+						throw new NumberFormatException();
+						
 					player.setCash(player.getCash()-i);
 					input = "r"+t.getText();
 					err.setText("");
@@ -205,6 +210,12 @@ public class Display extends JComponent
     		g.setFont(new Font("TimesRoman", Font.BOLD, 30));
     		g.setColor(Color.RED);
     		g.drawString("You Win $"+m+" With: "+l, 200, 100);
+    		int i = Integer.valueOf(m);
+    		if(first)
+    		{
+    			player.setCash(player.getCash()+i);
+    			first = false;
+    		}
     	}
     	
     }

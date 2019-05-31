@@ -234,13 +234,23 @@ public class Server
     {
     	pot = 0;
         dealToPlayers();
-        preflop();
+        int result = preflop();
+        if(result == 1) 
+        {
+        	sendString("Server: "+p1+"|fold|"+pot);
+        	return;
+        }
+        else if(result == 2) 
+        {
+        	sendString("Server: "+p2+"|"+"fold|"+pot);
+        	return;
+        }
         List<Card> c = new ArrayList<Card>();
         for(int i = 0;i<3;i++)
         	c.add(communityCards.get(i));
         sendString("Server: "+c);
         //The above code is for the flop
-        int result = bettingRound();
+        result = bettingRound();
         if(result == 1) 
         {
         	sendString("Server: "+p1+"|fold|"+pot);
