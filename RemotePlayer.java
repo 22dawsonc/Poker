@@ -26,7 +26,13 @@ public class RemotePlayer extends Player
         RemotePlayer r = new RemotePlayer(990, "a");
 
     }
-
+    public void reset() 
+    {
+    	winner = "";
+    	isTurn = false;
+        communityCards = new ArrayList<Card>();
+        //sendString("rtg");
+    }
     public RemotePlayer(int cash, String n)
     {
         super(cash, n);
@@ -100,7 +106,10 @@ public class RemotePlayer extends Player
                     cards.add(Card.reconstructCard(l));
                 deal(cards.get(0), cards.get(1));
                 System.out.println(this.getCards());
-                d = new Display(this);
+                if(d==null)
+                	d = new Display(this);
+                else 
+                	d.restart();
                 
             }else if(m.contains("?"))// ?<pot><amt to call> is the keyword that will be used to indicate and request to input
             {
@@ -145,6 +154,12 @@ public class RemotePlayer extends Player
             else 
             {
             	winner = s;
+            	try {Thread.sleep(10000);}
+            	catch(InterruptedException ie) 
+            	{
+            		ie.printStackTrace();
+            	}
+            	reset();
             }
         }	
         else if(m.contains("ServerTo")&&m.contains("?")) 

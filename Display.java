@@ -167,6 +167,43 @@ public class Display extends JComponent
         frame.add(bar, BorderLayout.SOUTH);
         frame.setVisible(true);
     }
+    public void restart() 
+    {
+    	first = true;
+    	frame.remove(p);
+    	BufferedImage myPicture = null;
+        List<Card> a = player.getCards();
+		try {
+			myPicture = ImageIO.read(new File(a.get(0).getFileName()));
+			myPicture = Display.scaleImage(myPicture, BufferedImage.TYPE_INT_RGB, (int)(myPicture.getWidth()*0.75),(int)( myPicture.getHeight()*0.75));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        
+        BufferedImage myPicture1 = null;
+		try {
+			myPicture1 = ImageIO.read(new File(a.get(1).getFileName()));
+			myPicture1 = Display.scaleImage(myPicture1, BufferedImage.TYPE_INT_RGB, (int)(myPicture1.getWidth()*0.75),(int)( myPicture1.getHeight()*0.75));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        JLabel picLabel1 = new JLabel(new ImageIcon(myPicture1));
+        p.setLayout(null);
+        frame.pack();
+        int w = (int)(picLabel1.getPreferredSize().getWidth());
+        int h = (int)(picLabel1.getPreferredSize().getHeight());
+        int w1 =(int)(470 - w) ;
+        int h1 = (int)(350);
+        System.out.println("" + w1 + " " + h1 + " " + (w1+w) + " " + (h1+h));
+        picLabel1.setBounds(w1,h1, w ,h );
+        picLabel.setBounds(w1+w,h1, w+w, h);
+        p.add(picLabel);
+        p.add(picLabel1);
+        frame.add(p);
+    }
     public static BufferedImage scaleImage(BufferedImage image, int imageType,
         int newWidth, int newHeight) {
         // Make sure the aspect ratio is maintained, so the image is not distorted

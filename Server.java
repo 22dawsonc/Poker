@@ -32,6 +32,7 @@ public class Server
     public static void main(String[] args)
     {
         Server server = new Server();
+        while(true) {
         while(!server.ready())   
         {
             try{Thread.sleep(100);}
@@ -39,6 +40,7 @@ public class Server
             {ie.printStackTrace();}
         }
         server.playRound();
+        }	
     
     }
     /**
@@ -234,6 +236,10 @@ public class Server
     {
     	pot = 0;
         dealToPlayers();
+        try {Thread.sleep(1000);}
+        catch(InterruptedException ie)
+        {	   	ie.printStackTrace();
+        }
         int result = preflop();
         if(result == 1) 
         {
@@ -297,6 +303,32 @@ public class Server
         }
         String win = getWinner();
         sendString("Server: "+win+"|"+winTypes[typeWin]+"|"+pot);
+        if(blind==1)
+        	blind=2;
+        else
+        	blind = 1;
+        communityCards = new ArrayList<Card>();
+        deck = new ArrayList<Card>();
+        String[] suits = {"d", "c", "s", "h"};
+        int ct = 0;
+        for(int i = 1;i<=13;i++)
+        {
+            for(int j = 0;j<4;j++)
+            {
+                Card c1 = new Card(i, suits[j]);
+                deck.add(c1);
+            }
+        }
+        //shuffles into random deck
+        for(int i = 51;i>0;i--)
+        {
+            int num = (int)(Math.random()*(i+1));
+            Card temp = deck.get(i);
+            deck.set(i,deck.get(num));
+            deck.set(num, temp);
+        }
+        for(int i = 0;i<5;i++)
+            communityCards.add(deck.remove(0));
     }
     /**
      * 0 means no one folded
